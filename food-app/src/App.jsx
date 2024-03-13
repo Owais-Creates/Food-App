@@ -1,7 +1,19 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components'
+import SearchResult from './Components/SearchResult';
 
-const BASE_URL = "http://localhost:9000/"
+export const BASE_URL = "http://localhost:9000"
+
+
+
+const foodnaem = {
+  name: "Boilded Egg",
+  price: 10,
+  text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+  image: "/images/egg.png",
+  type: "breakfast"
+}
+
 
 function App() {
 
@@ -29,7 +41,7 @@ function App() {
 
     }
     getFoodData();
-  },[])
+  }, [])
 
   if (error) return <h2>ERROR: {error}</h2>;
   if (loading) return <h2>LOADING...</h2>;
@@ -52,18 +64,10 @@ function App() {
           <Button>Lunch</Button>
           <Button>Dinner</Button>
         </BottomContainer>
-
       </Main>
 
-      <FoodCardContainer>
+      <SearchResult data={data} />
 
-
-
-        <FoodCards>
-
-        </FoodCards>
-
-      </FoodCardContainer>
     </>
   )
 }
@@ -110,19 +114,3 @@ cursor: pointer;
 color: white;
 
 `;
-
-const FoodCardContainer = styled.section`
-
-height: calc(100vh - 241px );
-background-image: url("./images/bg.png");
-background-repeat: no-repeat;
-background-size: cover;
-border: 5px solid grey;
-
-img{
-  height: calc(100vh - 241px );
-}
-
-`;
-
-const FoodCards = styled.div``;
