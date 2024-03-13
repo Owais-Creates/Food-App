@@ -62,8 +62,10 @@ const FoodCard = styled.div`
 
 width: 200px;
 height: 320px;
-background-color: gray;
-display: flex;
+backdrop-filter: blur(60px); 
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    display: flex;
 flex-direction: column;
 align-items: center;
 border-radius: 20px;
@@ -82,13 +84,14 @@ cursor: pointer;
     text-transform: uppercase;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
+    color: wheat;
 }
 
 .desc{
     margin-top: 12px;
     text-align: center;
     font-size: 1.2rem;
-
+color: white;
 }
 
 .price{
@@ -100,6 +103,7 @@ cursor: pointer;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     gap: 10px;
+    color: red;
 
 }
 
@@ -111,6 +115,7 @@ cursor: pointer;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     gap: 10px;
+    color: red;
 }
 
 `;
