@@ -9,60 +9,67 @@ function App() {
 
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(undefined);
+  const [loading, setLoading] = useState(false);
   const [filteredData, setFilteredData] = useState(null);
-  const [selectedBtn, setSelectedBtn] = useState("")
 
   useEffect(() => {
-    const getFoodData = async () => {
 
-      setLoading(true);
+    setLoading(true);
+
+    const getData = async () => {
 
       try {
 
         const res = await fetch(BASE_URL);
-        const jsonData = await res.json();
-        setData(jsonData);
-        setFilteredData(jsonData);
-        setLoading(false);
+        const json = await res.json();
+
+        setData(json);
+        setFilteredData(json)
 
       } catch (error) {
-
-        setError("Could not retrieve data");
-
+        console.error("Error fetching data:", error);
+        setError("An error occurred. Please try again later.");
+      } finally {
+        setLoading(false);
       }
 
+
     }
-    getFoodData();
-  }, [])
+    getData()
+  }, []);
 
-  if (error) return <h2>ERROR: {error}</h2>;
-  if (loading) return <h2>LOADING...</h2>;
+  if (error) return <div>Error! {error}</div>;
+  if (loading) return <div>Loading</div>;
 
+
+  // search functionality 
   const searchValue = (e) => {
-    const value = e.target.value;
+    const value = e.target.value.trim().toLowerCase();
 
     const filter = data?.filter((food) => (
-
-      food.name.toLowerCase().includes(value.toLowerCase())
+      food.name.toLowerCase().includes(value)
     ));
 
-    setFilteredData(filter)
+      setFilteredData(filter)
+    
   };
 
-  const filteredFood = (type) => {
-    if (type === "all") {
+
+  const buttonFilter = (type) => {
+
+    if (type == "all") {
       setFilteredData(data);
-      setSelectedBtn("all");
-      return;
+      return
     }
-  
-    const filter = data?.filter((food) => (
-      food.type.toLowerCase().includes(type.toLowerCase())
-    ));
+
+    const filter = data?.filter((val) => (
+      val.type.toLowerCase().includes(type.toLowerCase())
+    ))
+
     setFilteredData(filter);
-    setSelectedBtn(type);
+
   }
+
 
   const filterBtns = [
     {
@@ -98,7 +105,7 @@ function App() {
 
         <BottomContainer>
           {filterBtns.map((val) => (
-            <Button key={val.name} onClick={() => filteredFood(val.type)} >{val.name}</Button>
+            <Button onClick={() => buttonFilter(val.type)} key={val.name}>{val.name}</Button>
           ))}
         </BottomContainer>
       </Main>

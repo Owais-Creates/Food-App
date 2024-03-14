@@ -6,10 +6,11 @@ const SearchResult = ({ data }) => {
         <FoodCardContainer>
 
             {data?.map((food) => (
-                <FoodCard key={food.name}>
 
-                    <div className="image">
-                        <img src={BASE_URL + food.image} alt="" />
+                <FoodCard key={food.name} >
+
+                    <div className='image'>
+                        <img src={`${BASE_URL}${food.image}`} alt={food.label} />
                     </div>
 
                     <div className="name">
@@ -21,14 +22,16 @@ const SearchResult = ({ data }) => {
                     </div>
 
                     <div className="price">
-                        <p>PRICE:</p>  <Common>₹{food.price}</Common>
+                        <p>{food.price}</p>
                     </div>
 
                     <div className="type">
-                        <p>TYPE:</p> <Common>{food.type}</Common>
+                        <p>{food.type}</p>
                     </div>
 
+
                 </FoodCard>
+
             ))}
 
         </FoodCardContainer>
